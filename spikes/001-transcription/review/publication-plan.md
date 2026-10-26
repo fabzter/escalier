@@ -1,6 +1,6 @@
 # First public snapshot — privacy and provenance plan
 
-Status: **PLANNED, NOT PUSHED**. 2026-10-26. This is a coordinator execution ruling, not a new owner product decision or a claim that the publication audit has passed.
+Status: **COMPLETED — INITIAL PUBLIC ROOT PUSHED AND VERIFIED**. 2026-10-26. The execution record below applies to the first public snapshot, not product/runtime readiness.
 
 ## Authority and finding
 
@@ -34,3 +34,19 @@ Cost if wrong: development commit IDs quoted in retained review reports will not
 - Numerical source hashes and the pinned native-engine/model identities establish the executed measurement inputs independently of that lineage.
 - The public root contains the final reviewed files and retained reports, not a claim that every historical draft was public or safe.
 - Ad-hoc bundle signing and headless tests do not establish GUI launch, capture exclusion, global-key suppression, browser non-delivery, TCC grant reuse or HackerRank server-side invisibility.
+
+## Execution record — initial public snapshot
+
+- Approved repository: `https://github.com/fabzter/escalier`, read back as **PUBLIC**.
+- Retained private development tip: `0ff4ac5909f1f04bca625a7b79afd14a4c537cfa` on local `spike/transcription`, unchanged and not published.
+- Initial public root: `28841def783c410c59ed00bbc8309b7a826c53dc`, with **zero parents**.
+- Exact initial public tree: `befa8b76e4b03809e49cf4d2ad2cda07790d369f`, equal to the final audited development tree; **209 files**.
+- Reachable-object audit: **1 commit, 46 trees, 209 blobs**. No private development commit and neither known pre-fix scanner/test blob was reachable. All paths were ordinary tracked files, without model/build/cache/session-state paths or symlinks.
+- A generated `git archive main` export matched all 209 committed blobs byte for byte. All 205 non-audio files were UTF-8 and within the scanner's size limit; the four WAV files were canonical mono PCM 16-bit/16 kHz with only `fmt ` and `data` chunks, not hidden metadata containers. The exported scanner checked that exact export: 209 candidate files, no findings.
+- Effective author/committer and every local-ref commit identity were the approved personal identity. Public-root metadata matched it. No tags/tagger identities existed. Content checks and metadata checks were separate.
+- The remote was still empty immediately before the push. Only `refs/heads/main:refs/heads/main` was pushed, without force or automatic tags.
+- Remote readback matched the root SHA and tree above; visibility was PUBLIC, default branch `main`, and the only published branch was `main`, with no tags.
+- The existing local clone was then switched to public `main`, configured to track `origin/main`, and updated with `git pull --ff-only --no-tags`: already up to date, clean. The private development branch stayed at its original tip.
+- No refs were rewritten/deleted, no reflogs expired, no garbage collection/pruning ran, and no app launch, GUI/capture/tap/permission action or security-state change occurred.
+
+This operational record is retained as a documentation-only descendant of the public root. The root/tree IDs above identify the initial exact reviewed snapshot, not every later documentation tip. Any descendant must retain the public-only ancestry and pass its own content/identity/reachability check before a normal push.
