@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; connect-src 'none'; img-src 'self'; font-src 'none'">
+<title>Escalier 005 recipient oracle — inert local page</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <h1>Recipient key and input oracle</h1>
+  <p class="lede">Inert local page. No network, no storage, no timers beyond the precondition refresh, and no event suppression. Every listener is capture-phase and passive.</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Focused editable test field</h2>
+    <label for="test-field">Keep this field focused and this tab visible for every case.</label>
+    <textarea id="test-field" rows="4" autofocus spellcheck="false" autocomplete="off"></textarea>
+    <p class="hint">The page never reads or stores the field content. Counters count events, not characters.</p>
+    <button id="reset" type="button">Reset counters</button>
+    <p id="reset-state" class="hint">Counters not reset in this load.</p>
+  </section>
+
+  <section class="card control">
+    <h2>OFF positive control — required before any armed case</h2>
+    <ol>
+      <li>Confirm Escalier capture is OFF and the tap has not been installed.</li>
+      <li>Click the test field above and keep this tab active and visible.</li>
+      <li>Send the same chord that the armed case will use, once, with the same browser profile and page.</li>
+      <li>Send the known synthetic text from the run sheet, once.</li>
+      <li>Record a non-zero selected-key count and a non-zero input count. Zero means INVALID, never PASS.</li>
+      <li>Reset the counters, then arm capture while keeping this field focused.</li>
+    </ol>
+    <p class="hint">The positive control must use the same chord, same profile, same page and the focused visible field.</p>
+  </section>
+
+  <section class="card">
+    <h2>Preconditions</h2>
+    <p id="precondition-state" class="state">Checking…</p>
+    <dl class="grid">
+      <dt>Page has focus</dt><dd id="has-focus">unknown</dd>
+      <dt>Page visible</dt><dd id="visibility-state">unknown</dd>
+      <dt>Test field is active element</dt><dd id="field-focused">unknown</dd>
+    </dl>
+    <p class="hint">Any failed precondition makes the case INVALID. Do not continue after focus or visibility changes.</p>
+  </section>
+
+  <section class="card">
+    <h2>Selected non-modifier keys</h2>
+    <table>
+      <thead><tr><th>Probe key</th><th>keydown</th><th>keyup</th></tr></thead>
+      <tbody>
+        <tr><td>K</td><td id="selected-down-K">0</td><td id="selected-up-K">0</td></tr>
+        <tr><td>Escape</td><td id="selected-down-Escape">0</td><td id="selected-up-Escape">0</td></tr>
+        <tr><td>A</td><td id="selected-down-A">0</td><td id="selected-up-A">0</td></tr>
+        <tr><td>Backspace</td><td id="selected-down-Backspace">0</td><td id="selected-up-Backspace">0</td></tr>
+        <tr><td>Enter</td><td id="selected-down-Enter">0</td><td id="selected-up-Enter">0</td></tr>
+        <tr><td>Tab</td><td id="selected-down-Tab">0</td><td id="selected-up-Tab">0</td></tr>
+        <tr><td>ArrowLeft</td><td id="selected-down-ArrowLeft">0</td><td id="selected-up-ArrowLeft">0</td></tr>
+        <tr><td>ArrowRight</td><td id="selected-down-ArrowRight">0</td><td id="selected-up-ArrowRight">0</td></tr>
+        <tr><td>ArrowUp</td><td id="selected-down-ArrowUp">0</td><td id="selected-up-ArrowUp">0</td></tr>
+        <tr><td>ArrowDown</td><td id="selected-down-ArrowDown">0</td><td id="selected-up-ArrowDown">0</td></tr>
+        <tr><td>Home</td><td id="selected-down-Home">0</td><td id="selected-up-Home">0</td></tr>
+        <tr><td>End</td><td id="selected-down-End">0</td><td id="selected-up-End">0</td></tr>
+        <tr><td>PageUp</td><td id="selected-down-PageUp">0</td><td id="selected-up-PageUp">0</td></tr>
+        <tr><td>PageDown</td><td id="selected-down-PageDown">0</td><td id="selected-up-PageDown">0</td></tr>
+        <tr><td>Other non-modifier</td><td id="selected-down-other">0</td><td id="selected-up-other">0</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Modifiers (expected baseline, not failure)</h2>
+    <p class="hint">Browsers deliver modifier key events even when the non-modifier chord key is consumed. Report these separately.</p>
+    <dl class="grid">
+      <dt>Modifier keydown</dt><dd id="modifier-down">0</dd>
+      <dt>Modifier keyup</dt><dd id="modifier-up">0</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>Input and composition</h2>
+    <dl class="grid">
+      <dt>keydown total</dt><dd id="keydown-total">0</dd>
+      <dt>keyup total</dt><dd id="keyup-total">0</dd>
+      <dt>beforeinput</dt><dd id="beforeinput-total">0</dd>
+      <dt>input</dt><dd id="input-total">0</dd>
+      <dt>compositionstart</dt><dd id="compositionstart-total">0</dd>
+      <dt>compositionend</dt><dd id="compositionend-total">0</dd>
+      <dt>focus</dt><dd id="focus-total">0</dd>
+      <dt>blur</dt><dd id="blur-total">0</dd>
+      <dt>visible transitions</dt><dd id="visible-total">0</dd>
+      <dt>hidden transitions</dt><dd id="hidden-total">0</dd>
+      <dt>scroll</dt><dd id="scroll-total">0</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>Scroll receiver</h2>
+    <p class="hint">Navigation keys must not move this region while capture is armed. Record the scroll counter before and after.</p>
+    <div id="scroll-region" tabindex="0">
+      <p>The scroll counter only increments when this region actually scrolls. Keep the test field focused; do not click here during a case.</p>
+      <p class="spacer">Synthetic spacer line 1</p>
+      <p class="spacer">Synthetic spacer line 2</p>
+      <p class="spacer">Synthetic spacer line 3</p>
+      <p class="spacer">Synthetic spacer line 4</p>
+      <p class="spacer">Synthetic spacer line 5</p>
+      <p class="spacer">Synthetic spacer line 6</p>
+      <p class="spacer">Synthetic spacer line 7</p>
+      <p class="spacer">Synthetic spacer line 8</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Recovery control</h2>
+    <p>After Stop or timeout, type an ordinary recovery key in the same field. Do not use Escape as the recovery key when the case consumes Escape. Record that ordinary delivery resumes and the keydown/keyup counters increase.</p>
+  </section>
+</main>
+
+<script type="module" src="oracle.mjs"></script>
+</body>
+</html>

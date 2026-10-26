@@ -1,0 +1,62 @@
+# Agent/session state and secrets
+.omp/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Project-contained dependency sources, builds, downloaded weights and worktrees
+.cache/
+.tools/
+.build/
+build/
+worktrees/
+.worktrees/
+*.gguf
+*.onnx
+*.safetensors
+*.mlmodel
+*.mlmodelc/
+*.mlpackage/
+*.app/
+*.dylib
+*.metallib
+*.dSYM/
+*.o
+*.a
+
+# Python/compiler/editor caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+DerivedData/
+xcuserdata/
+*.xcuserstate
+.swiftpm/
+
+# Local logs and unreviewed temporary output
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
+
+# Curated small licensed fixtures, tests and selected documented results are
+# intentionally tracked. Do not add blanket *.wav or results/ ignores. Stage
+# selected result paths explicitly; keep uncurated scratch output in scratch/.
+scratch/

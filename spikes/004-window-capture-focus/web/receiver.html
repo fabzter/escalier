@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob: mediastream:; connect-src 'none'; font-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'">
+  <title>Escalier Spike 004 — receiver</title>
+  <link rel="stylesheet" href="./app.css">
+  <script type="module" src="./receiver.mjs"></script>
+</head>
+<body>
+  <main class="page">
+    <p class="banner danger">RECEIVER PAGE — VIDEO COMES ONLY FROM THE RECEIVED TRACK</p>
+
+    <h1>Receiver</h1>
+    <p>
+      This page never starts a display capture. It waits for a same-origin offer,
+      builds a receiver-owned media stream from the received video track, and reads
+      inbound RTP statistics. Missing inbound statistics produce no receiver
+      evidence. A sender preview is not used here.
+    </p>
+
+    <section class="card">
+      <h2>Session</h2>
+      <div class="row">
+        <button id="request-offer" class="primary" type="button">Request sender offer</button>
+        <button id="refresh-stats" type="button">Refresh receiver stats</button>
+        <button id="reset-receiver" type="button">Reset receiver</button>
+      </div>
+      <p id="receiver-status" class="status">Waiting for a local sender offer.</p>
+      <p id="receiver-stats" class="status">No inbound video statistics have been observed.</p>
+      <p class="small">Video only. Zero audio tracks are required before the sender offers.</p>
+    </section>
+
+    <section class="card">
+      <h2>Received video</h2>
+      <video id="receiver-video" muted playsinline controls></video>
+      <p class="small">
+        This video's source is assigned only from a received track. It is not the
+        sender page's preview element.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Receiver transport evidence</h2>
+      <p id="evidence-status" class="status warn">NO RECEIVER EVIDENCE</p>
+      <pre id="evidence-summary" aria-live="polite">{}</pre>
+      <p class="small">
+        Evidence requires inbound video framesDecoded greater than zero, frame and
+        video dimensions, and a positive control before marker absence is
+        interpreted. Connection state alone is not evidence.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Marker ROI sampling</h2>
+      <p class="small">
+        Sample only a small crop around a marker. Click the received video to place
+        a default 48 by 48 ROI at that point, or enter coordinates in source pixels.
+        The crop is never exported and no full frame is retained. The magenta marker
+        color is sampled with a small per-channel tolerance.
+      </p>
+      <div class="row">
+        <label for="roi-x">x</label>
+        <input id="roi-x" type="number" min="0" step="1" value="0">
+        <label for="roi-y">y</label>
+        <input id="roi-y" type="number" min="0" step="1" value="0">
+        <label for="roi-w">w</label>
+        <input id="roi-w" type="number" min="1" step="1" value="48">
+        <label for="roi-h">h</label>
+        <input id="roi-h" type="number" min="1" step="1" value="48">
+      </div>
+      <div class="row">
+        <label for="roi-label">ROI label</label>
+        <select id="roi-label">
+          <option value="treatment-sharing-none">treatment-sharing-none</option>
+          <option value="control-sharing-readOnly">control-sharing-readOnly</option>
+          <option value="auxiliary-panel">auxiliary-panel</option>
+          <option value="other">other</option>
+        </select>
+        <button id="sample-roi" type="button">Sample ROI now</button>
+      </div>
+      <div class="grid">
+        <div>
+          <p class="small">ROI crop preview — not a full frame</p>
+          <canvas id="roi-canvas" width="96" height="96"></canvas>
+        </div>
+        <div>
+          <p id="roi-stats" class="status">No ROI sample yet.</p>
+          <pre id="roi-log" aria-live="polite">[]</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Receiver transport log</h2>
+      <pre id="receiver-transport-log" aria-live="polite">[]</pre>
+    </section>
+
+    <section class="card">
+      <h2>Focus and visibility log for this tab</h2>
+      <div class="row">
+        <button id="snapshot-focus" type="button">Snapshot focus state</button>
+      </div>
+      <pre id="focus-log" aria-live="polite">[]</pre>
+    </section>
+  </main>
+</body>
+</html>

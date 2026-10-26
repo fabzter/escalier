@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "engine": {
+    "name": "transcribe.cpp",
+    "repository": "https://github.com/handy-computer/transcribe.cpp",
+    "revision": "8facde6fcd8fb9caa585a5788ab450df6e8ec7db",
+    "version": "0.4.1",
+    "license": "MIT",
+    "public_header": "include/transcribe.h",
+    "python_binding": {
+      "path": "bindings/python",
+      "package": "transcribe_cpp",
+      "version": "0.4.1",
+      "kind": "official stdlib-only ctypes binding",
+      "installed_globally": false
+    },
+    "abi_hash": "f99ad4169374b8f3",
+    "abi_hash_file_sha256": "557837003edaec5fd1e1c3fc2f832064045d26c36a88f4900ea517a1692635af"
+  },
+  "source_verification": {
+    "method": "git rev-parse HEAD, clean git status, no submodules, vendored tree ids, patch file hashes, public header version, binding version, ABI hash",
+    "clean_tree_verified": true,
+    "submodules": [],
+    "ggml": {
+      "upstream_repository": "git@github.com:ggml-org/ggml.git",
+      "upstream_sha": "d7cb574130e6f01ad25b3289685489200febcd74",
+      "vendored_tree": "417a338844d35617ec0cc5fd70ee39b0f98cd93f",
+      "patch_tree": "ed9971fde1a4137415f891fb1a41647f2bd6609d",
+      "upstream_file": "ggml/UPSTREAM",
+      "patches": [
+        {
+          "path": "patches/ggml/0001-fix-threadpool-oversubscription.patch",
+          "sha256": "a67d843f8ef1476b9b356d5f5eed8c078ed8184063721b9df09a722e5b540946"
+        },
+        {
+          "path": "patches/ggml/0002-backend-reg-filter.patch",
+          "sha256": "ca2f38a9bc4dadac126e7b6f89005abc759bc23f448ad87ac74b001d718f5c11"
+        },
+        {
+          "path": "patches/ggml/0003-metal-mapped-buffer-null.patch",
+          "sha256": "ad4a304fd730748572d154d68fb7099e2bd52db9061d7d15085676462e48f395"
+        }
+      ]
+    }
+  },
+  "build": {
+    "system": "cmake",
+    "generator": "Ninja",
+    "build_type": "Release",
+    "source_dir": ".tools/transcribe.cpp",
+    "build_dir": ".tools/build",
+    "command": "python3 spikes/001-transcription/tools/build_engine.py --import-check",
+    "flags": [
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DTRANSCRIBE_BUILD_SHARED=ON",
+      "-DTRANSCRIBE_BUILD_TESTS=OFF",
+      "-DTRANSCRIBE_BUILD_EXAMPLES=OFF",
+      "-DTRANSCRIBE_BUILD_TOOLS=OFF",
+      "-DTRANSCRIBE_METAL=ON",
+      "-DGGML_METAL=ON",
+      "-DGGML_METAL_EMBED_LIBRARY=ON",
+      "-DTRANSCRIBE_USE_OPENMP=OFF",
+      "-DGGML_NATIVE=ON"
+    ],
+    "tool_versions": {
+      "cmake": "cmake version 4.4.4",
+      "ninja": "1.13.2",
+      "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+      "python": "3.13.0",
+      "platform": "macOS-27.0.1-arm64",
+      "machine": "arm64"
+    },
+    "metadata_file": ".tools/build/engine-build.json"
+  },
+  "artifact": {
+    "path": ".tools/build/src/libtranscribe.dylib",
+    "sha256": "d3fe0516d1a0d8bcf80775857c29813ddbd787ebbe10d2bb507c2f0d0733d195",
+    "size_bytes": 1966072,
+    "native_version_import_check": "0.4.1",
+    "native_commit_import_check": "8facde6",
+    "import_check": {
+      "method": "official transcribe_cpp import with TRANSCRIBE_LIBRARY; library load + backend enumeration only, no model/inference",
+      "ok": true,
+      "backends": [
+        {
+          "name": "MTL0",
+          "kind": "metal",
+          "device_type": "gpu",
+          "memory_total_bytes": 26800603136
+        },
+        {
+          "name": "CPU",
+          "kind": "cpu",
+          "device_type": "cpu",
+          "memory_total_bytes": 34359738368
+        }
+      ],
+      "note": "Metal device was registered by the native runtime; this is runtime backend evidence, not a build-flag claim."
+    }
+  },
+  "runtime": {
+    "library_discovery_order": [
+      "native/libtranscribe.dylib",
+      ".tools/build/src/libtranscribe.dylib",
+      ".tools/build/bin/libtranscribe.dylib",
+      ".tools/build/lib/libtranscribe.dylib",
+      ".tools/install/lib/libtranscribe.dylib",
+      ".tools/lib/libtranscribe.dylib"
+    ],
+    "binding_source": ".tools/transcribe.cpp/bindings/python/src",
+    "model_files": "external cached models are not downloaded or hashed by this lock; the coordinator ledger verifies their SHA-256",
+    "python": ">=3.10 (the official binding uses PEP 604 annotations)"
+  },
+  "commands": {
+    "build": "python3 spikes/001-transcription/tools/build_engine.py --import-check",
+    "verify": "python3 spikes/001-transcription/tools/build_engine.py --verify-only",
+    "tests": "python3 -m unittest discover -s spikes/001-transcription/tests -v"
+  },
+  "notes": [
+    "The artifact hash is for the reviewed local build in .tools/build; a rebuild with a different toolchain may produce a different hash and engine.lock.json must be updated after review.",
+    "feed_chunk_ms is caller cadence, not a native stream field.",
+    "The pinned Nemotron 3.5 cache-aware model documents att_context_right frames {0,3,6,13} with default 13; the Engine API default (3) selects its [56,3] latency setting and is valid. Native begin rejects values outside the model's menu.",
+    "Auto language maps to the native empty/NULL hint (Nemotron prompt.auto_id), never the literal string 'auto'; per-call/per-stream hints do not reload the model.",
+    "Nemotron 3.5 requires a language choice: explicit locale or the explicit auto mode (empty hint). Engine records requested/resolved/detected language and never injects a hidden default prompt.",
+    "Build source is required to be a clean checkout: the build script refuses a dirty tree and records tree hashes."
+  ]
+}

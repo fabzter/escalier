@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob: mediastream:; connect-src 'none'; font-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'">
+  <title>Escalier Spike 004 — sender</title>
+  <link rel="stylesheet" href="./app.css">
+  <script type="module" src="./sender.mjs"></script>
+</head>
+<body>
+  <main class="page">
+    <p class="banner danger">SENDER PAGE — THE PREVIEW BELOW IS NOT RECEIVER EVIDENCE</p>
+
+    <h1>Sender</h1>
+    <p>
+      Capture begins only when you press the start button and then choose a source
+      in the browser/OS picker. The stream is requested with video only. No
+      microphone, upload, external ICE server or recording is used.
+    </p>
+
+    <section class="card">
+      <h2>User-chosen capture</h2>
+      <div class="row">
+        <button id="start-capture" class="primary" type="button">Choose source and start capture</button>
+        <button id="stop-capture" type="button" disabled>Stop capture</button>
+      </div>
+      <p id="sender-status" class="status">Idle. No capture has started.</p>
+      <p class="small">
+        The source picker and any screen-recording permission belong to you. This
+        fixture does not select a picker item or grant a permission.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Sender preview — explicitly not receiver evidence</h2>
+      <video id="sender-preview" muted playsinline controls></video>
+      <p class="small">
+        This element shows the local sender stream. The receiver page has its own
+        video element populated only from the received track.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Focus and visibility log for this tab</h2>
+      <div class="row">
+        <button id="snapshot-focus" type="button">Snapshot focus state</button>
+      </div>
+      <pre id="focus-log" aria-live="polite">[]</pre>
+    </section>
+
+    <section class="card">
+      <h2>Transport log</h2>
+      <pre id="sender-log" aria-live="polite">[]</pre>
+    </section>
+  </main>
+</body>
+</html>

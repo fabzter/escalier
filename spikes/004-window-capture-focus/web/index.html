@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob: mediastream:; connect-src 'none'; font-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'">
+  <title>Escalier Spike 004 — synthetic capture/focus fixture</title>
+  <link rel="stylesheet" href="./app.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <main class="page">
+    <p class="banner danger">SYNTHETIC LOCAL TEST FIXTURE — RUNTIME NOT RUN IN THE WORKER — NOT A STEALTH CLAIM</p>
+
+    <h1>Window, focus and receiver-capture harness</h1>
+    <p>
+      This local page is a manual test surface for a synthetic AppKit fixture and a
+      browser sender/receiver pair. It exists to record what a receiver actually
+      decoded, not to establish invisibility. A sender preview is never receiver
+      evidence.
+    </p>
+
+    <section class="card">
+      <h2>Manual protocol</h2>
+      <ol>
+        <li>Start the local server yourself: <code>node tools/serve-local.mjs --port 8642</code>.</li>
+        <li>Prepare a clean Space/display: close private windows, silence notifications, and remove unrelated content.</li>
+        <li>Open the sender and receiver pages in separate tabs.</li>
+        <li>Choose the capture source yourself in the browser picker. Grant any browser or macOS screen-recording permission yourself.</li>
+        <li>Stop sharing, revoke permission when finished, and keep this window plus the native stop/close controls reachable.</li>
+      </ol>
+      <p class="small">
+        The fixture never starts a server, opens a browser, selects a picker item,
+        grants a permission, uses a microphone, or records a full frame. Only video
+        receiver metadata and explicitly cropped marker ROI samples are read.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Sender and receiver tabs</h2>
+      <div class="grid">
+        <div>
+          <h3>Sender</h3>
+          <p>Starts a user-chosen display stream in a click handler, verifies video only, and offers it over a local same-origin channel.</p>
+          <p><a href="./sender.html" target="_blank" rel="noopener">Open the sender page</a></p>
+        </div>
+        <div>
+          <h3>Receiver</h3>
+          <p>Builds its video only from the received track, reads inbound RTP statistics, and samples marker ROIs without exporting frames.</p>
+          <p><a href="./receiver.html" target="_blank" rel="noopener">Open the receiver page</a></p>
+        </div>
+      </div>
+      <p class="small">
+        Open them in separate tabs. There are no external servers, uploads, STUN or
+        TURN requests. Signalling is a same-origin BroadcastChannel carrying SDP and
+        local ICE candidates only.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Focus and visibility log for this tab</h2>
+      <p class="small">Events are kept in memory only. Snapshot before and after each native-panel action.</p>
+      <div class="row">
+        <button id="snapshot-focus" type="button">Snapshot focus state</button>
+        <button id="clear-focus-log" type="button">Clear log</button>
+      </div>
+      <pre id="focus-log" aria-live="polite">[]</pre>
+    </section>
+
+    <section class="card">
+      <h2>Inert click-through underlay</h2>
+      <p>
+        Position the native click-through panel over this button. The count changes
+        only for inert test hits; there is no real action behind it.
+      </p>
+      <div class="row">
+        <button id="underlay-button" class="secondary" type="button">Inert underlay button</button>
+        <span>Underlay clicks: <output id="underlay-count">0</output></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Evidence boundaries</h2>
+      <ul>
+        <li>Sharing-none is a legacy window flag; the fixture records it but does not treat it as a modern capture guarantee.</li>
+        <li>A sharing-readOnly control must be positively visible in the same cell before a sharing-none marker absence is interpreted.</li>
+        <li>A selected external window with both markers outside the source is N/A, not evidence of exclusion.</li>
+        <li>Entire-display and selected-window capture are different surfaces and must be recorded separately.</li>
+        <li>A synthetic local result says nothing about undisclosed HackerRank or other third-party signals.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

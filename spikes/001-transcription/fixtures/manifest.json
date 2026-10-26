@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "sample_rate": 16000,
+  "fixtures": [
+    {
+      "id": "fleurs-en-us-10233995782544396174",
+      "language": "en",
+      "asr_language": "en-US",
+      "wav": "fixtures/en_us_10233995782544396174.wav",
+      "reference": "fixtures/en_us_10233995782544396174.txt",
+      "wav_sha256": "c78892756d631b4ccaf75ea9ecaf758510ca21b95e46e46bbad6a2a78682c0af",
+      "reference_sha256": "c2586e372aa04d333aa68b4b2d48e45790f5d0a0456317aaafb1b953d2a3529c",
+      "duration_s": 4.32,
+      "source": {
+        "url": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/data/en_us/audio/test.tar.gz",
+        "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "license": "CC-BY-4.0",
+        "config": "en_us",
+        "locale": "en_us",
+        "split": "test",
+        "row": 518,
+        "item_id": "10233995782544396174.wav",
+        "audio_sha256": "bfa2f3fb72a05cbcb7c0000a460435f2d0eedca7c5cc90f01aacc89127df7f63",
+        "reference_column": "raw_transcription"
+      },
+      "conversion": {
+        "tool": "python3.13 stdlib float32-to-pcm16 mono/16000 v1"
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.32,
+          "kind": "oracle_file_boundary"
+        }
+      ]
+    },
+    {
+      "id": "fleurs-es-419-10149016836336603986",
+      "language": "es",
+      "asr_language": "es-US",
+      "wav": "fixtures/es_419_10149016836336603986.wav",
+      "reference": "fixtures/es_419_10149016836336603986.txt",
+      "wav_sha256": "d9a0df9a66fde764dfae5c706476d938e569b922d730a84136fbc4b318123b59",
+      "reference_sha256": "3f4301c74d5280d38f9bbdbe74d79cd8ece122b1801201b13d0d2bf1baaafeac",
+      "duration_s": 5.64,
+      "source": {
+        "url": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/data/es_419/audio/test.tar.gz",
+        "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "license": "CC-BY-4.0",
+        "config": "es_419",
+        "locale": "es_419",
+        "split": "test",
+        "row": 322,
+        "item_id": "10149016836336603986.wav",
+        "audio_sha256": "13b06188bd62a1a63ed350e6fe1a1ee8518db1ea7bc8f75d72849ca023de7c32",
+        "reference_column": "raw_transcription"
+      },
+      "conversion": {
+        "tool": "python3.13 stdlib float32-to-pcm16 mono/16000 v1"
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 5.64,
+          "kind": "oracle_file_boundary"
+        }
+      ]
+    },
+    {
+      "id": "derived-en-us-10233995782544396174-repeat2",
+      "language": "en",
+      "asr_language": "en-US",
+      "wav": "fixtures/derived_en_us_10233995782544396174_repeat2.wav",
+      "reference": "fixtures/derived_en_us_10233995782544396174_repeat2.txt",
+      "wav_sha256": "55e90a984a8e401dc96d3ae26f2d6437b5e25fb59a6af7cb71d9c8edf7ea04eb",
+      "reference_sha256": "4b358c9a18831f71b45a8fb6a20b3cada92fe0dd9abdf9e4fbd3d1a51dbce797",
+      "duration_s": 8.64,
+      "source": {
+        "url": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/data/en_us/audio/test.tar.gz",
+        "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "license": "CC-BY-4.0",
+        "config": "en_us",
+        "locale": "en_us",
+        "split": "test",
+        "row": 518,
+        "item_id": "10233995782544396174.wav",
+        "audio_sha256": "bfa2f3fb72a05cbcb7c0000a460435f2d0eedca7c5cc90f01aacc89127df7f63",
+        "reference_column": "raw_transcription"
+      },
+      "conversion": {
+        "tool": "python3.13 stdlib float32-to-pcm16 mono/16000 v1; repeat-2 pcm assembly v1"
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.32,
+          "kind": "derived_assembly"
+        },
+        {
+          "start_s": 4.32,
+          "end_s": 8.64,
+          "kind": "derived_assembly"
+        }
+      ]
+    },
+    {
+      "id": "derived-en-us-es-419-switch",
+      "language": "mixed",
+      "asr_language": "auto",
+      "wav": "fixtures/derived_en_us_es_419_switch.wav",
+      "reference": "fixtures/derived_en_us_es_419_switch.txt",
+      "wav_sha256": "3bc105390196bc04160e4293f87dac38801ae4e1f0672f376d384d5e5d1209f1",
+      "reference_sha256": "00550332fdad5722a5d618ecd608ef1a82fef195ce14e0500ec0dec3b1e7cd35",
+      "duration_s": 9.96,
+      "source": {
+        "url": "https://huggingface.co/datasets/google/fleurs/resolve/70bb2e84b976b7e960aa89f1c648e09c59f894dd/data/en_us/audio/test.tar.gz",
+        "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+        "license": "CC-BY-4.0",
+        "config": "en_us",
+        "locale": "en_us",
+        "split": "test",
+        "row": 518,
+        "item_id": "10233995782544396174.wav",
+        "audio_sha256": "bfa2f3fb72a05cbcb7c0000a460435f2d0eedca7c5cc90f01aacc89127df7f63",
+        "reference_column": "raw_transcription"
+      },
+      "conversion": {
+        "tool": "python3.13 stdlib float32-to-pcm16 mono/16000 v1; switch-concat v1 sources=en_us:518:10233995782544396174.wav:bfa2f3fb72a05cbcb7c0000a460435f2d0eedca7c5cc90f01aacc89127df7f63;es_419:322:10149016836336603986.wav:13b06188bd62a1a63ed350e6fe1a1ee8518db1ea7bc8f75d72849ca023de7c32 pcm v1"
+      },
+      "segments": [
+        {
+          "start_s": 0.0,
+          "end_s": 4.32,
+          "kind": "derived_assembly"
+        },
+        {
+          "start_s": 4.32,
+          "end_s": 9.96,
+          "kind": "derived_assembly"
+        }
+      ]
+    }
+  ]
+}
